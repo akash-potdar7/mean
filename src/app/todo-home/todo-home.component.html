@@ -1,0 +1,21 @@
+<div class="info">
+  <mat-card class="list-card">
+    <mat-card-header>
+      <mat-card-title><h3>Tasks</h3></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <mat-nav-list>
+        <mat-list-item *ngFor="let todo of todos" title="Click to Edit">
+          <mat-checkbox (change)='onCheckTodo($event, todo)' [(ngModel)]="todo.isCompleted"></mat-checkbox>
+          <span class="l-spacer-4x" (click)='openDialog({"type": "update", "data": todo})'>{{todo.text}}</span>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-nav-list>
+
+    </mat-card-content>
+    <mat-card-actions>
+
+    </mat-card-actions>
+  </mat-card>
+</div>

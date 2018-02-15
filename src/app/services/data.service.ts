@@ -36,8 +36,8 @@ export class DataService {
       });
   }
 
-  updateTodo(todo: any, id: string) {
-    return this.http.put('/api/updateTodo/' + id, todo, this.options)
+  updateTodo(todo: any, _id: string) {
+    return this.http.put('/api/updateTodo/' + _id, todo, this.options)
       .map(result => {
         console.log(result.json());
         return this.result = result;

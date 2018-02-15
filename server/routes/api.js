@@ -86,12 +86,12 @@ router.post('/saveTodo', (req, res) => {
 });
 
 // Update Todo.
-router.put('/updateTodo/:id', (req, res, next) => {
+router.put('/updateTodo/:_id', (req, res, next) => {
     let todo = req.body;
     connection((dbTodos) => {
         dbTodos.collection('todos')
             .update({
-                _id: mongojs.ObjectID(req.params.id)
+                _id: mongojs.ObjectID(req.params._id)
             }, todo)
             .then((todo) => {
                 response.data = todo;
@@ -120,6 +120,5 @@ router.delete('/deleteTodo/:id', (req, res, next) => {
             });
     });
 });
-
 
 module.exports = router;

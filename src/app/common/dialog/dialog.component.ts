@@ -18,7 +18,7 @@ export class DialogComponent implements OnInit {
 
   btnToggler: boolean = false;
 
-  todoTextFormControl = new FormControl('', [ Validators.required ]);
+  todoTextFormControl = new FormControl('', [Validators.required]);
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialog: MatDialog,
     private dialogRef: MatDialogRef<DialogComponent>, private dataService: DataService) { }
@@ -44,17 +44,13 @@ export class DialogComponent implements OnInit {
   }
 
   validateBtn(text: string) {
-    if(text.length > 0 &&  text !== '' || text !== null || text !== undefined) {
-      this.btnToggler = false;
-    } else this.btnToggler = true;
-  }
-
-  getErrorMessage() {
-    if(this.todoTextFormControl.hasError('required')) {
-      this.btnToggler = true;
-      return 'You must enter a value';
+    if (text.length > 0) {
+      if (text !== '' || text !== null || text !== undefined) {
+        this.btnToggler = false;
+      } else
+        this.btnToggler = true;
     } else {
-      this.btnToggler = false;
+      this.btnToggler = true;
     }
   }
 

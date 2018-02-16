@@ -10,10 +10,13 @@
         <mat-form-field hintLabel="Max 50 characters">
           <textarea matInput #textInput placeholder="{{placeholder}}" [(ngModel)]="obj.text" (ngModelChange)="validateBtn(obj.text)"
             matTextareaAutosize matAutosizeMinRows="2" maxlength="50"
-            [formControl]="todoTextFormControl" matAutosizeMaxRows="5" required>
+            [(formControl)]="todoTextFormControl" matAutosizeMaxRows="5" required>
           </textarea>
           <mat-hint align="end">{{textInput.value?.length || 0}}/50</mat-hint>
-          <mat-error *ngIf="todoTextFormControl.invalid">{{getErrorMessage()}}
+          <!-- <mat-error *ngIf="todoTextFormControl.invalid">{{getErrorMessage()}}
+          </mat-error> -->
+          <mat-error *ngIf="todoTextFormControl.hasError('required')">
+            ToDo description is <strong>required</strong>
           </mat-error>
         </mat-form-field>
 
@@ -21,7 +24,7 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button mat-button color="primary" [mat-dialog-close]='{"upData": obj}'>Done</button>
+      <button mat-button mat-button color="primary" [disabled]="btnToggler" [mat-dialog-close]='{"upData": obj}'>Done</button>
       <button mat-button (click)="onNoClick()">Cancel</button>
     </mat-card-actions>
   </mat-card>

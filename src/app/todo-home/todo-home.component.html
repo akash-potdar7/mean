@@ -1,21 +1,26 @@
 <div class="info">
   <mat-card class="list-card">
     <mat-card-header>
-      <mat-card-title><h3>Tasks</h3></mat-card-title>
+      <mat-card-title>
+        <h2>TODOs</h2>
+        <button mat-fab color="primary" (click)='openDialog({"type": "add", "data": todo})'>
+          <i class="fa fa-plus-circle"></i>
+        </button>
+      </mat-card-title>
     </mat-card-header>
+    <mat-divider></mat-divider>
     <mat-card-content>
 
       <mat-nav-list>
-        <mat-list-item *ngFor="let todo of todos" title="Click to Edit">
-          <mat-checkbox (change)='onCheckTodo($event, todo)' [(ngModel)]="todo.isCompleted"></mat-checkbox>
-          <span class="l-spacer-4x" (click)='openDialog({"type": "update", "data": todo})'>{{todo.text}}</span>
+        <mat-list-item *ngFor="let todo of todos">
+          <div><mat-checkbox (change)='onCheckTodo($event, todo)' [(ngModel)]="todo.isCompleted"></mat-checkbox></div>  
+          <div class="l-spacer-4x" title="Click to Edit"><span (click)='openDialog({"type": "update", "data": todo})'>{{todo.text}}</span></div>
+          <div class="t-shift-right"><span (click)="deleteTodo(todo._id)"><i class="fas fa-trash"></i></span></div>  
           <mat-divider></mat-divider>
         </mat-list-item>
       </mat-nav-list>
 
     </mat-card-content>
-    <mat-card-actions>
-
-    </mat-card-actions>
+    
   </mat-card>
 </div>

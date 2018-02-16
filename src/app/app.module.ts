@@ -13,8 +13,10 @@ import { DialogComponent } from './common/dialog/dialog.component';
 
 import {
   MatToolbarModule, MatCardModule, MatListModule, MatDividerModule, MatCheckboxModule, MatDialogModule,
-  MatInputModule, MatButtonModule, MAT_DIALOG_DEFAULT_OPTIONS
+  MatInputModule, MatButtonModule, MAT_DIALOG_DEFAULT_OPTIONS, MatSnackBarModule
 } from '@angular/material';
+
+// import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {
     MatCheckboxModule,
     MatDialogModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
+   // ,AngularFontAwesomeModule
   ],
   providers: [DataService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
   bootstrap: [AppComponent],

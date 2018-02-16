@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { DialogComponent } from '../common/dialog/dialog.component';
+import { Todo } from '../common/Todo';
 
 @Component({
   selector: 'todo-home',
@@ -13,31 +14,33 @@ export class TodoHomeComponent implements OnInit {
   todo: any;
   todos: Array<any> = [];
 
-  constructor(private dataService: DataService, private dialog: MatDialog) { }
+  constructor(private dataService: DataService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getTodos();
-    // this.getTodo();
-    // this.saveTodo();
-    // this.updateTodo();
-    // this.deleteTodo();
   }
 
-  openDialog(obj: any) {
-    console.log(obj);
-    const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(DialogComponent, {data: obj});
-
+  openDialog(todoData: any) {
+    const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(DialogComponent, { data: todoData });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      if(result === undefined || result.data.text === result.upData) {
-        console.log('Error');
+      if (result === undefined) {
+        this.getTodos();
+        return;
       } else {
-        let todoObj = {
-          "_id": result.data._id,
-          "text": result.upData,
-          "isCompleted": result.data.isCompleted
-        };
-        this.updateTodo(todoObj);
+        if (result.upData.text === '') {
+          this.snackBar.open('Empty todo!', 'Okay!', {duration: 3000});
+          this.getTodos();
+          return;
+        } else {
+          let todoObj: Todo;
+          if (result.upData._id === '' || result.upData._id === undefined || result.upData._id === null || result.upData._id === 0) {
+            todoObj = new Todo('', result.upData.text, result.upData.isCompleted);
+            this.saveTodo(todoObj);
+          } else {
+            todoObj = new Todo(result.upData._id, result.upData.text, result.upData.isCompleted);
+            this.updateTodo(todoObj);
+          }
+        }
       }
     });
   }
@@ -53,7 +56,7 @@ export class TodoHomeComponent implements OnInit {
         this.todos = todos;
       },
       error => {
-        console.log('Error in fetching todos');
+        this.snackBar.open(error, 'Okay', {duration: 3000});
       }
     );
   }
@@ -63,26 +66,25 @@ export class TodoHomeComponent implements OnInit {
     this.dataService.getTodo(id).subscribe(
       todos => {
         this.todo = todos;
-        console.log(todos);
       },
       error => {
-        console.log('Error in fetching todo');
+        this.snackBar.open(error, 'Okay', {duration: 3000});
       }
     );
   }
 
-  saveTodo() {
-    // Sample todo JSON.
-    let todo = {
-      "text": "Work on mean at 8",
-      "isCompleted": false
+  saveTodo(todo: Todo) {
+    let todoObj = {
+      "text": todo.text,
+      "isCompleted": todo.isCompleted
     };
-    this.dataService.saveTodo(todo).subscribe(
+    this.dataService.saveTodo(todoObj).subscribe(
       data => {
-        console.log(data)
+        this.snackBar.open(todoObj.text + ' Saved!', 'Done', {duration: 3000});
+        this.getTodos();
       },
       error => {
-        console.log(error);
+        this.snackBar.open(error, 'Okay', {duration: 3000});
       }
     );
   }
@@ -91,28 +93,27 @@ export class TodoHomeComponent implements OnInit {
     let id = todo._id;
     let updatedObj = {
       "text": todo['text'],
-      "isCompleted": todo['isCompleted'] 
+      "isCompleted": todo['isCompleted']
     };
     this.dataService.updateTodo(updatedObj, id).subscribe(
       data => {
-        console.log(data)
+        this.snackBar.open(todo.text + ' updated!', 'Done', {duration: 3000});
         this.getTodos();
       },
       error => {
-        console.log(error);
+        this.snackBar.open(error, 'Okay', {duration: 3000});
       }
     );
   }
 
-  deleteTodo() {
-    let id = '5a84967e34efdb8bf480597c';
+  deleteTodo(id: string) {
     this.dataService.deleteTodo(id).subscribe(
       data => {
-        console.log(data);
+        this.snackBar.open('Deleted.', 'Okay', {duration: 3000});
         this.getTodos();
       },
       error => {
-        console.log(error);
+        this.snackBar.open(error, 'Okay', {duration: 3000});
       }
     );
   }

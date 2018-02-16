@@ -2,19 +2,26 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>
-        <h3>Edit Todo</h3>
+        <h3>{{dialogTitle}}</h3>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div>
-        <mat-form-field>
-          <textarea matInput placeholder="{{data.data.text}}" [(ngModel)]="updatedTitle" matTextareaAutosize matAutosizeMinRows="2"
-            matAutosizeMaxRows="5"></textarea>
+
+        <mat-form-field hintLabel="Max 50 characters">
+          <textarea matInput #textInput placeholder="{{placeholder}}" [(ngModel)]="obj.text" (ngModelChange)="validateBtn(obj.text)"
+            matTextareaAutosize matAutosizeMinRows="2" maxlength="50"
+            [formControl]="todoTextFormControl" matAutosizeMaxRows="5" required>
+          </textarea>
+          <mat-hint align="end">{{textInput.value?.length || 0}}/50</mat-hint>
+          <mat-error *ngIf="todoTextFormControl.invalid">{{getErrorMessage()}}
+          </mat-error>
         </mat-form-field>
-      </div>
+
+        Check: <mat-checkbox matInput [(ngModel)]="obj.isCompleted"></mat-checkbox>
+
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button [mat-dialog-close]='{"data": data.data, "upData": updatedTitle}'>Done</button>
+      <button mat-button mat-button color="primary" [mat-dialog-close]='{"upData": obj}'>Done</button>
       <button mat-button (click)="onNoClick()">Cancel</button>
     </mat-card-actions>
   </mat-card>

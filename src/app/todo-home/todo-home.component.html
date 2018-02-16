@@ -4,7 +4,7 @@
       <mat-card-title>
         <h2>TODOs</h2>
         <button mat-fab color="primary" (click)='openDialog({"type": "add", "data": todo})'>
-          <i class="fa fa-plus-circle"></i>
+          <i class="fa fa-plus-circle" style="font-size:26px;"></i>
         </button>
       </mat-card-title>
     </mat-card-header>
@@ -14,8 +14,9 @@
       <mat-nav-list>
         <mat-list-item *ngFor="let todo of todos">
           <div><mat-checkbox (change)='onCheckTodo($event, todo)' [(ngModel)]="todo.isCompleted"></mat-checkbox></div>  
-          <div class="l-spacer-4x" title="Click to Edit"><span (click)='openDialog({"type": "update", "data": todo})'>{{todo.text}}</span></div>
-          <div class="t-shift-right"><span (click)="deleteTodo(todo._id)"><i class="fas fa-trash"></i></span></div>  
+          <div class="l-spacer-4x" title="Click to Edit"><span (click)='openDialog({"type": "update", "data": todo})'>{{todo.text}}</span>
+            <span class="t-shift-right" (click)="deleteTodo(todo._id)"><i class="fas fa-trash"></i></span>
+          </div>
           <mat-divider></mat-divider>
         </mat-list-item>
       </mat-nav-list>

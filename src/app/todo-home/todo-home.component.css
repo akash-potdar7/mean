@@ -7,6 +7,7 @@
 }
 .l-spacer-4x {
     margin-left: 16px;
+    min-width: 312px;
 }
 .t-shift-right {
     float: right;

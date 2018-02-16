@@ -13,7 +13,7 @@ import { DialogComponent } from './common/dialog/dialog.component';
 
 import {
   MatToolbarModule, MatCardModule, MatListModule, MatDividerModule, MatCheckboxModule, MatDialogModule,
-  MatInputModule, MatButtonModule, MAT_DIALOG_DEFAULT_OPTIONS, MatSnackBarModule
+  MatInputModule, MatButtonModule, MAT_DIALOG_DEFAULT_OPTIONS, MatSnackBarModule,MatGridListModule
 } from '@angular/material';
 
 // import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -39,7 +39,8 @@ import {
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatGridListModule
    // ,AngularFontAwesomeModule
   ],
   providers: [DataService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],

@@ -29,7 +29,7 @@ export class DialogComponent implements OnInit {
       case 'update':
         this.dialogTitle = 'Edit Todo';
         this.obj = this.data['data'];
-        this.placeholder = 'Edit you ToDo';
+        this.placeholder = 'Edit your ToDo';
         this.btnToggler = false;
         break;
       case 'add':

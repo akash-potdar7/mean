@@ -2,10 +2,15 @@
   <mat-card class="list-card">
     <mat-card-header>
       <mat-card-title>
-        <h2>TODOs</h2>
-        <button mat-fab color="primary" (click)='openDialog({"type": "add", "data": todo})'>
-          <i class="fa fa-plus-circle" style="font-size:26px;"></i>
-        </button>
+        <div class="l-spacer-32x" title="Click to Add">
+          <span><blockquote><h2>TODOs</h2></blockquote></span>
+            Manage your tasks...
+          <span class="t-shift-right">
+            <button mat-fab color="primary" (click)='openDialog({"type": "add", "data": todo})'>
+              <i class="fa fa-plus-circle" style="font-size:26px;"></i>
+            </button>
+          </span>
+        </div>
       </mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
@@ -13,15 +18,15 @@
 
       <mat-nav-list>
         <mat-list-item *ngFor="let todo of todos">
-          <div><mat-checkbox (change)='onCheckTodo($event, todo)' [(ngModel)]="todo.isCompleted"></mat-checkbox></div>  
+          <div><mat-checkbox (change)='onCheckTodo($event, todo)' title="Check/Uncheck task" [(ngModel)]="todo.isCompleted"></mat-checkbox></div>  
           <div class="l-spacer-4x" title="Click to Edit"><span (click)='openDialog({"type": "update", "data": todo})'>{{todo.text}}</span>
-            <span class="t-shift-right" (click)="deleteTodo(todo._id)"><i class="fas fa-trash"></i></span>
+            <span class="t-shift-right" title="Click to Delete" (click)="deleteTodo(todo._id)"><i class="fas fa-trash"></i></span>
           </div>
           <mat-divider></mat-divider>
         </mat-list-item>
       </mat-nav-list>
 
     </mat-card-content>
-    
+
   </mat-card>
 </div>

@@ -4,7 +4,7 @@
       <mat-card-title>
         <div class="l-spacer-32x" title="Click to Add">
           <span><blockquote><h2>TODOs</h2></blockquote></span>
-            Manage your tasks...
+            {{ 'page.card.title' | translate }}
           <span class="t-shift-right">
             <button mat-fab color="primary" (click)='openDialog({"type": "add", "data": todo})'>
               <i class="fa fa-plus-circle" style="font-size:26px;"></i>

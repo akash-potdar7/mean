@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  mean:
+    image: 'mean'
+    build: '.'
+    #volumes:
+      #- ./dashboard:/app
+      #- '/app/node_modules'
+    ports:
+      - 3000:80
+    environment:
+      - NODE_ENV=dev

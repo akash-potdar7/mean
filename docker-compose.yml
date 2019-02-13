@@ -2,12 +2,14 @@ version: '3'
 
 services:
   mean:
-    image: 'mean'
-    build: '.'
+    hostname: localhost
+    container_name: mean-container
+    build: .
     #volumes:
       #- ./dashboard:/app
       #- '/app/node_modules'
     ports:
-      - 3000:80
+      - 3000:90
     environment:
       - NODE_ENV=dev
+    # command: sh startmean.sh

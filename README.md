@@ -18,3 +18,6 @@ Current Agenda:
   [TODO]
   Build a solution to bring the app up and running, with angular-cli hot reloading.
   If possible in max 2 containers.
+
+
+Contributors are welcome. Raise a pull request.
